@@ -32,4 +32,127 @@ function getMaxValue(num1,num2){
     }
 }
 
-module.exports = {getMinValue,getMaxValue}
+function getAVG(numbersParam){
+    if(!numbersParam){
+        return{
+            status:400,
+            data:{
+               error: `Please insert numbers`,
+            },
+        };
+
+    }
+
+    const numbers = numbersParam.split(',').map(num=>parseFloat(num));
+    for(let num of numbers){
+        if(isNaN(num)){
+            return{
+                status:400,
+                data:{
+                   error: `valus must be number`,
+                },
+            };
+    }
+}
+    const sum = numbers.reduce((getSum, a) => getSum + a, 0); 
+
+    return{
+        status:200,
+        data: {
+            avg: sum/numbers.length,
+        },
+    }
+
+}
+function getSortArray(numbersParam,sortingType){
+    if(!numbersParam || !sortingType){
+        return{
+            status:400,
+            data:{
+               error: `Please insert numbers`,
+            },
+        };
+    }
+    if(sortingType==='dec'){
+        const decSorting = decSort(numbersParam);
+        return decSorting;
+    }
+    if(sortingType==='asc'){
+    const ascSorting = ascSort(numbersParam);
+        return ascSorting;
+    }
+    return{
+        status:400,
+        data:{
+           error: `Please insert correct sorting type`,
+        },
+    };
+
+}
+
+function decSort(numbersParam){
+    if(!numbersParam){
+        return{
+            status:400,
+            data:{
+               error: `Please insert numbers`,
+            },
+        };
+
+    }
+
+    const numbers = numbersParam.split(',').map(num=>parseFloat(num));
+    for(let num of numbers){
+        if(isNaN(num)){
+            return{
+                status:400,
+                data:{
+                   error: `valus must be number`,
+                },
+            };
+        }
+    }
+    const sortArr = numbers.sort((a, b) => b - a);
+    return{
+        status:200,
+        data: {
+            dec: sortArr,
+        },
+    }
+
+
+
+}
+function ascSort(numbersParam){
+    if(!numbersParam){
+        return{
+            status:400,
+            data:{
+               error: `Please insert numbers`,
+            },
+        };
+
+    }
+
+    const numbers = numbersParam.split(',').map(num=>parseFloat(num));
+    for(let num of numbers){
+        if(isNaN(num)){
+            return{
+                status:400,
+                data:{
+                   error: `valus must be number`,
+                },
+            };
+        }
+    }
+    const sortArr = numbers.sort((a, b) => a - b);
+    return{
+        status:200,
+        data: {
+            asc: sortArr,
+        },
+    }
+
+}
+
+module.exports = {getMinValue,getMaxValue,getAVG,getSortArray}
