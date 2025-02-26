@@ -69,7 +69,7 @@ function getSortArray(numbersParam,sortingType){
         return{
             status:400,
             data:{
-               error: `Please insert numbers`,
+               error: `Please insert values`,
             },
         };
     }
@@ -155,4 +155,29 @@ function ascSort(numbersParam){
 
 }
 
-module.exports = {getMinValue,getMaxValue,getAVG,getSortArray}
+
+function searchArray(numbersParam, insertVal){
+    let count =0;
+    if(!numbersParam || !insertVal){
+        return{
+            status:400,
+            data:{
+               error: `Please insert values`,
+            },
+        };
+    }
+    const numbers = numbersParam.split(',');
+    for(let num of numbers){
+        if(num===insertVal){
+            count++
+        }
+    }
+    return{
+        status:200,
+        data: {
+            sum: count,
+        },}
+
+}
+
+module.exports = {getMinValue,getMaxValue,getAVG,getSortArray,searchArray}

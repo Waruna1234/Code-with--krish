@@ -3,6 +3,9 @@ const {getMinValue}= require(`./util.js`);
 const {getMaxValue}= require(`./util.js`);
 const {getAVG}= require(`./util.js`);
 const {getSortArray}= require(`./util.js`);
+const {searchArray}= require(`./util.js`);
+
+
 
 const app = new express();
 const port = 3000;
@@ -57,6 +60,17 @@ app.get('/number/sort', (req, res) => {
 
 
 })
+app.get('/number/count', (req, res) => {
+    const numbersParam = req.query.numbers;
+    const insertVal = req.query.insert;
+
+    const searchValue =searchArray(numbersParam, insertVal);
+    res.status(searchValue.status).json(searchValue.data);
+
+
+})
+
+
 
 
 app.listen(port,()=>{
