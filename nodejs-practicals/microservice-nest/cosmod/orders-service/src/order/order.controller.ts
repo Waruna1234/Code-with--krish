@@ -5,13 +5,14 @@ import { Order } from './entity/order.entity';
 import {updateOrderStatusDto} from './dto/update-order.dto';
 
 
-@Controller('order')
+@Controller('orders')
 export class OrderController {
 
     constructor(private ordersService: OrderService){}
 
     @Post()
     async createOrder(@Body() createOrderDto:createOrderDto){
+        console.log(createOrderDto);
         return await this.ordersService.create(createOrderDto);
     }
 
@@ -20,7 +21,7 @@ export class OrderController {
         return await this.ordersService.fetch(id);
     }
 
-    @Get('all')
+    @Get()
     async fetchAll(){
         return await this.ordersService.fetchAll();
     }

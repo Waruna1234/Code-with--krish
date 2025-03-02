@@ -23,5 +23,11 @@ export class InvertryController {
     async fetch(@Param('id') id:number){
         return await this.invertryService.findById(id);
     }
+    // @Get(':id,qty')
+    // async valiedStock(@Param('id') id:number,@Param() qty:number){
+    //     return await 
+
+    // }
+
 
 }

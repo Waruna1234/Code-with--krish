@@ -12,7 +12,7 @@ export class CustomerController {
         return await this.customerService.addCustomerDetails(customerDetails);
     }
 
-    @Get('all')
+    @Get()
     async getAll(){
         return await this.customerService.getAll();
     }
