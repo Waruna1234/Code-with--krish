@@ -26,10 +26,6 @@ export class OrderService {
    
 
 async create(createOrderDto:createOrderDto): Promise<Order | null>{
-    
-
-
-
     const{customerId, items} = createOrderDto;
 
     const itemIds = createOrderDto.items.map(item =>  ({
@@ -38,7 +34,7 @@ async create(createOrderDto:createOrderDto): Promise<Order | null>{
       }));
 
    
-      
+
     const existsCus = this.findCutomer(customerId);
     if(!existsCus){
         throw new NotFoundException(`Customer not exist ${existsCus} not found`);
@@ -71,6 +67,8 @@ return this.orderRepository.findOne({
     where: {id: savedOrder.id},
     relations: ['items'],
 });
+
+this.updateIverntary(orderItems);
 }
 
 async fetch(id : any): Promise<Order | null>{
@@ -128,8 +126,24 @@ findItems(itemIds){
     return true;
 }
 
+updateIverntary(orderItems){
+    for(const order of orderItems){
+        const itest=this.productRepository.findOne({
+            where: { id: order.productId }
+          });        
+          if(!itest){
+            throw new NotFoundException(`Product not exist`);
+          }
+          itest.quantity == order.quantity;
+          this.productRepository.save(itest)
 
-
+          }    
+    }
 
 }
+
+
+
+
+
 
