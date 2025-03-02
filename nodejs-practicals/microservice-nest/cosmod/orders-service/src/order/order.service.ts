@@ -63,12 +63,13 @@ async create(createOrderDto:createOrderDto): Promise<Order | null>{
     });   
 });
 await this.ordetItemRepository.save(orderItems);
+this.updateIverntary(orderItems);
 return this.orderRepository.findOne({
     where: {id: savedOrder.id},
     relations: ['items'],
 });
 
-this.updateIverntary(orderItems);
+
 }
 
 async fetch(id : any): Promise<Order | null>{
