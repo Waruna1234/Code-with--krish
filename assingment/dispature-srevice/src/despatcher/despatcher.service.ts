@@ -3,7 +3,7 @@ import { RegisterVehicletDto } from './dto/create-register-vihicle';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RegisterVehicle } from './entity/vihicle.entity';
-import { Kafka } from 'kafkajs';    
+import { Kafka } from 'kafkajs';   
 
 @Injectable()
 export class DespatcherService {
@@ -25,8 +25,9 @@ export class DespatcherService {
         await this.consumer.run({      
           eachMessage: async ({ message }) => {
 
+           
             const { customerId,city, customerName, items } = JSON.parse(
-              message.value.toString(),
+              message.toString(),
             );
             const getVehicle =this.productRepository.find({ where: { city } })
             if(!getVehicle){
